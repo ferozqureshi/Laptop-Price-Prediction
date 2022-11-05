@@ -9,7 +9,7 @@ Dataset Description:
   My first impressions of the data said that the data isn't clean. And it's quite clear that sufficient attention needs to be paid for this data during pre-processing.
   The sample data looks as follows:
   
-  ![alt-text](https://github.com/ferozqureshi/Laptop-Price-Prediction/blob/main/headlaptop.png)
+  <img src="https://github.com/ferozqureshi/Laptop-Price-Prediction/blob/main/headlaptop.png" height="200" /> <br/>
 
 ## Process followed in solving the problem:
 &nbsp; &nbsp;1️⃣Loading in data <br/> 
@@ -25,9 +25,12 @@ Dataset Description:
 &nbsp; &nbsp;&nbsp; &nbsp;It was clear that pre-processing is an important step when I've seen the data for first time. Firstly, I've divided the columns into
 categorical and numerical types; Company, TypeName, ScreenResolution, Cpu, Ram, Memory, Gpu, OpSys, Weight being the categorical columns and Inches, Price are 
 numerical columns.<br/>
-&nbsp; &nbsp;&nbsp; &nbsp;On observation I saw that if I remove "GB" from RAM,i can 
-make it an integer value, now same goes with Memory and Weight. For Weight I can classify it as floating variable
-using the str.replace().
+&nbsp; &nbsp;&nbsp; &nbsp;On observation I saw that if I remove "GB" from RAM, I can 
+make it an integer value, now same goes with Memory and Weight. For Weight, I can classify it as floating variable
+using the str.replace().<br/>
+&nbsp; &nbsp;&nbsp; &nbsp;The price distribution can be viewed as below: <br/><br/>
+&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;<img src="https://github.com/ferozqureshi/Laptop-Price-Prediction/blob/main/price_distribution.png" height="200" /> <br/>
+
 &nbsp;In keras there is [TextVectorization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/TextVectorization) layer which does it for us.These tokens(maps text features to integer sequences)don't actually add more value until we convert them into word embeddings.
 <br/> 
 &nbsp; &nbsp;&nbsp; &nbsp;I have taken the vocab dictionary in the textvectorizer to be 200,000 (max_tokens=20000)
