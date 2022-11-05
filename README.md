@@ -30,7 +30,8 @@ make it an integer value, now same goes with Memory and Weight. For Weight, I ca
 using the str.replace().<br/>
 &nbsp; &nbsp;&nbsp; &nbsp;The price distribution can be viewed as below: <br/><br/>
 &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;<img src="https://github.com/ferozqureshi/Laptop-Price-Prediction/blob/main/price_distribution.png" height="200" /> <br/>
-
+&nbsp; &nbsp;&nbsp; &nbsp;The heatmap looks as follows:
+<img src="https://github.com/ferozqureshi/Laptop-Price-Prediction/blob/main/heatmap.png" />
 &nbsp;In keras there is [TextVectorization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/TextVectorization) layer which does it for us.These tokens(maps text features to integer sequences)don't actually add more value until we convert them into word embeddings.
 <br/> 
 &nbsp; &nbsp;&nbsp; &nbsp;I have taken the vocab dictionary in the textvectorizer to be 200,000 (max_tokens=20000)
