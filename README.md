@@ -7,7 +7,7 @@ Motivation:
   
 Dataset Description:
   My first impressions of the data said that the data isn't clean. And it's quite clear that sufficient attention needs to be paid for this data during pre-processing.
-  The sample data looks as follows:
+  The sample data looks as follows:<br/>
   
   <img src="https://github.com/ferozqureshi/Laptop-Price-Prediction/blob/main/headlaptop.png" height="200" /> <br/>
 
@@ -25,24 +25,25 @@ Dataset Description:
 &nbsp; &nbsp;&nbsp; &nbsp;It was clear that pre-processing is an important step when I've seen the data for first time. Firstly, I've divided the columns into
 categorical and numerical types; Company, TypeName, ScreenResolution, Cpu, Ram, Memory, Gpu, OpSys, Weight being the categorical columns and Inches, Price are 
 numerical columns.<br/>
+&nbsp; &nbsp;&nbsp; &nbsp;The price distribution can be viewed as below: <br/><br/>
+&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;<img src="https://github.com/ferozqureshi/Laptop-Price-Prediction/blob/main/price_distribution.png" height="200" /><br/>
 &nbsp; &nbsp;&nbsp; &nbsp;On observation I saw that if I remove "GB" from RAM, I can 
 make it an integer value, now same goes with Memory and Weight. For Weight, I can classify it as floating variable
 using the str.replace().<br/>
-&nbsp; &nbsp;&nbsp; &nbsp;The price distribution can be viewed as below: <br/><br/>
-&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;<img src="https://github.com/ferozqureshi/Laptop-Price-Prediction/blob/main/price_distribution.png" height="200" /> <br/>
-&nbsp; &nbsp;&nbsp; &nbsp;The heatmap looks as follows:
-<img src="https://github.com/ferozqureshi/Laptop-Price-Prediction/blob/main/heatmap.png" />
-&nbsp;In keras there is [TextVectorization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/TextVectorization) layer which does it for us.These tokens(maps text features to integer sequences)don't actually add more value until we convert them into word embeddings.
-<br/> 
-&nbsp; &nbsp;&nbsp; &nbsp;I have taken the vocab dictionary in the textvectorizer to be 200,000 (max_tokens=20000)
-which is a big dictionary, and I've done it to maximize the accuracy. I've taken the maximum sequence length to be 1800.
+ <br/>
+&nbsp; &nbsp;&nbsp; &nbsp;The heatmap looks as follows:<br/>
+&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;<img src="https://github.com/ferozqureshi/Laptop-Price-Prediction/blob/main/heatmap2.png" height="200" width="500" /><br/>
 
-#### The pipeline that I've followed:
-   - Converted slices of an array in the form of objects by using tf.Dataset.from_tensor_slices()
-   - Cached the data dataset.cache()
-   - Shuffled the data using dataset.shuffle()
-   - Made batches of 16 data points by using dataset.batch(16)
-   - To prevent bottleneck, I have done the pre-fetching using dataset.prefetch(8)
+
+&nbsp; &nbsp;&nbsp; &nbsp;From the correlation plot I've observed that as the X_res and Y_res is increased, the price of the laptop also increased. That means X_res and Y_res are positively correlated and they are giving much information, so that is the reason why I've splitted Resolution column into X_res and Y_res columns respectively. <br/>
+
+&nbsp; &nbsp;&nbsp; &nbsp;To make things good, I've created a new column named PPI{pixels per inch}, now as we saw from the correlation plot that the X_res and Y_res are having much collinearity, so why not combine them with Inches which is having less collinearity. <br/>
+&nbsp; &nbsp;&nbsp; &nbsp;Formula for PPI(Pixel Per Inch), PPI = √(X_resolution² + Y_resolution²) / inches <br/>
+&nbsp; &nbsp;&nbsp; &nbsp;At the end of pre-processing, the data looks as below: <br/>
+&nbsp; &nbsp;&nbsp; &nbsp;<img src="https://github.com/ferozqureshi/Laptop-Price-Prediction/blob/main/data_after_preprocessing.png" height="200" /> <br/>v
+
+
+
 
 ### 3️⃣Creating an RNN LSTM model
 1) Firstly, I've created an Embedding layer which converts the tokens to embeddings.<br/>
