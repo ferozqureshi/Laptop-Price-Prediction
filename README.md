@@ -16,7 +16,7 @@ Dataset Description:
 &nbsp; &nbsp;2️⃣Preprocessing the data <br/> 
 &nbsp; &nbsp;3️⃣Creating different models <br/> 
 &nbsp; &nbsp;4️⃣evaluating model performance <br/> 
-&nbsp; &nbsp;5️⃣creating a Streamlit ML app
+&nbsp; &nbsp;5️⃣Hyper-parameter optimization <br/>
 	
 	
 ### 1️⃣Loading in data:
@@ -40,35 +40,39 @@ using the str.replace().<br/>
 &nbsp; &nbsp;&nbsp; &nbsp;To make things good, I've created a new column named PPI{pixels per inch}, now as we saw from the correlation plot that the X_res and Y_res are having much collinearity, so why not combine them with Inches which is having less collinearity. <br/>
 &nbsp; &nbsp;&nbsp; &nbsp;Formula for PPI(Pixel Per Inch), PPI = √(X_resolution² + Y_resolution²) / inches <br/>
 &nbsp; &nbsp;&nbsp; &nbsp;At the end of pre-processing, the data looks as below: <br/>
-&nbsp; &nbsp;&nbsp; &nbsp;<img src="https://github.com/ferozqureshi/Laptop-Price-Prediction/blob/main/data_after_preprocessing.png" height="200" /> <br/>v
+&nbsp; &nbsp;&nbsp; &nbsp;<img src="https://github.com/ferozqureshi/Laptop-Price-Prediction/blob/main/data_after_preprocessing.png" height="200" /> <br/>
 
 
 
 
-### 3️⃣Creating an RNN LSTM model
-1) Firstly, I've created an Embedding layer which converts the tokens to embeddings.<br/>
-2) Next, I've used LSTM (Long Short-Term Memory) bidirectional layer to fit it.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;It is well known that LSTM performs better with
-sequences, and sequences is what we've. <br/>
-&nbsp;&nbsp;&nbsp;&nbsp;I've used tanh activation because tensorflow dictates to use tanh in specific to LSTM.
- The reason why I've used bidirectional layer is because 
- the sequences can have modifier words which changes the meaning of
-of the sentence.
+### 3️⃣Creating models
 
-I've trained for 5 epochs till the losses are ; training loss:-  , validation loss:-
+I've fit the data for following models:
+1) linear Regression 
+2) Ridge Regression 
+3) Lasso Regression 
+4) Decision Tree 
+5) Random Forest 
 
 
 
 ### 4️⃣Evaluating model performance
-The following metrics has been used:<br/>
-   - Precison
-   - Recall
-   - CategoricalAccuracy
-   - make a note of all metrics
+As this is a regression problem, I've used Mean Absolute Error as metric.
+The values for different models are as follows:
 
-### 5️⃣Creating a gradio DL app
-Finally, I serialized the model to h5 file
-and integrated it with gradio.
+1) linear Regression (MAE = 0.210)
+2) Ridge Regression (MAE = 0.2092)
+3) Lasso Regression (MAE = 0.211)
+4) Decision Tree (MAE = 0.180)
+5) Random Forest (MAE = 0.158)
 
-Final look of Web Api: a gif...
+From this we can conclude that using Random Forest yields best results.
+
+### 5️⃣Hyper-parameter optimization
+&nbsp; &nbsp;&nbsp; &nbsp;I've used RandomizedCv for Hyper-parameter optimization.<br/>
+&nbsp; &nbsp;&nbsp; &nbsp;I've settled on the following values for random forest:<br/>
+&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;RandomForestRegressor(ccp_alpha=0.0025, criterion='mae', max_depth=15,<br/>
+                        &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;max_features='log2', min_samples_leaf=5,<br/>
+                        &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;min_samples_split=14, n_estimators=588)}<br/>
+
   
